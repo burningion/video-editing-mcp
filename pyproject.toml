@@ -19,7 +19,7 @@ requires = [ "hatchling",]
 build-backend = "hatchling.build"
 
 [tool.uv.workspace]
-members = ["tools"]
+members = ["tools", "analysis"]
 
 [project.scripts]
 video-editor-mcp = "video_editor_mcp:main"
