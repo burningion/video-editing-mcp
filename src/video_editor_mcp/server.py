@@ -1,4 +1,5 @@
 import asyncio
+from datetime import datetime
 
 from videojungle import ApiClient
 from mcp.server.models import InitializationOptions
@@ -276,6 +277,30 @@ def format_video_info_long(video):
     except Exception as e:
         return f"Error formatting video: {str(e)}"
     
+def format_local_searched_video_details(video):
+    # Get video duration in readable format
+    duration = str(datetime.timedelta(seconds=video.get('exif_info', {}).get('duration', 0)))
+
+    # Format date with timezone
+    video_date = video.get('date')
+    date_str = video_date.strftime("%B %d, %Y at %I:%M %p %Z") if video_date else "Date unknown"
+
+    # Get location details
+    place = video.get('place', {})
+    location = f"{place.get('name', 'Location unknown')}" if place else "Location unknown"
+
+    # Format detected faces
+    face_count = len(video.get('face_info', []))
+    faces = f"Detected {face_count} people" if face_count > 0 else "No people detected"
+
+    return (
+        f"Video: {video.get('filename', 'Untitled')}\n"
+        f"  📅 Recorded: {date_str}\n"
+        f"  ⏱️ Duration: {duration}\n"
+        f"  📍 Location: {location}\n"
+        f"  👥 People: {faces}\n"
+    )
+
 @server.call_tool()
 async def handle_call_tool(
     name: str, arguments: dict | None
@@ -348,16 +373,18 @@ async def handle_call_tool(
         try:
             db = photos_loader.db
             videos = get_videos_by_keyword(db, keyword)
+            total_videos = len(videos)
+            display_limit = 100
+            videos_to_show = videos[:display_limit]
+            result_message = (
+                f"Found {total_videos} videos matching '{keyword}'\n"
+                + (f"Showing first {display_limit} results:\n" if total_videos > display_limit else "\n")
+                + "\n".join(format_local_searched_video_details(video) for video in videos_to_show)
+            )
             return [
             types.TextContent(
                 type="text",
-                text=(
-                    f"Number of Videos Returned: {len(videos)}\n\nShowing first 100:"
-                    + "\n".join(
-                        f"- {video}"
-                        for video in videos[:100]
-                    )
-                ),
+                text=result_message
             )
         ]
         except Exception as e:
