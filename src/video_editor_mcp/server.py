@@ -1,5 +1,5 @@
 import asyncio
-from datetime import datetime
+from datetime import timedelta
 
 from videojungle import ApiClient
 from mcp.server.models import InitializationOptions
@@ -279,7 +279,7 @@ def format_video_info_long(video):
     
 def format_local_searched_video_details(video):
     # Get video duration in readable format
-    duration = str(datetime.timedelta(seconds=video.get('exif_info', {}).get('duration', 0)))
+    duration = str(timedelta(seconds=video.get('exif_info', {}).get('duration', 0)))
 
     # Format date with timezone
     video_date = video.get('date')
