@@ -1,0 +1,20 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - videoJungleApiKey
+    properties:
+      videoJungleApiKey:
+        type: string
+        description: The API key for the Video Jungle server.
+      enableLocalPhotosSearch:
+        type: boolean
+        description: Enable searching through local Photos app on MacOS.
+  commandFunction:
+    # A function that produces the CLI command to start the MCP on stdio.
+    |-
+    (config) => ({ command: 'uv', args: ['run', 'video-editor-mcp', config.videoJungleApiKey], env: config.enableLocalPhotosSearch ? { LOAD_PHOTOS_DB: '1' } : {} })
