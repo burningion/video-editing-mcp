@@ -533,6 +533,10 @@ async def handle_list_tools() -> list[types.Tool]:
                             "description": "Whether to render subtitiles in the video edit",
                             "default": True,
                         },
+                        "vertical_crop": {
+                            "type": "string",
+                            "description": "ML-powered automatic vertical crop mode. Pass 'standard' to enable automatic vertical video cropping",
+                        },
                         "edit": {
                             "type": "array",
                             "items": {
@@ -650,6 +654,10 @@ async def handle_list_tools() -> list[types.Tool]:
                             "type": "boolean",
                             "description": "Whether to render subtitiles in the video edit",
                             "default": True,
+                        },
+                        "vertical_crop": {
+                            "type": "string",
+                            "description": "ML-powered automatic vertical crop mode. Pass 'standard' to enable automatic vertical video cropping",
                         },
                         "edit": {
                             "type": "array",
@@ -771,6 +779,10 @@ async def handle_list_tools() -> list[types.Tool]:
                         "rendered": {
                             "type": "boolean",
                             "description": "Whether the edit has been rendered",
+                        },
+                        "vertical_crop": {
+                            "type": "string",
+                            "description": "ML-powered automatic vertical crop mode. Pass 'standard' to enable automatic vertical video cropping",
                         },
                     },
                     "required": ["project_id", "edit_id"],
@@ -992,6 +1004,10 @@ async def handle_list_tools() -> list[types.Tool]:
                         "type": "string",
                         "description": "Video resolution. Examples include '1920x1080', '1280x720'",
                     },
+                    "vertical_crop": {
+                        "type": "string",
+                        "description": "ML-powered automatic vertical crop mode. Pass 'standard' to enable automatic vertical video cropping",
+                    },
                     "edit": {
                         "type": "array",
                         "items": {
@@ -1105,6 +1121,10 @@ async def handle_list_tools() -> list[types.Tool]:
                     "project_id": {"type": "string"},
                     "resolution": {"type": "string"},
                     "video_id": {"type": "string"},
+                    "vertical_crop": {
+                        "type": "string",
+                        "description": "ML-powered automatic vertical crop mode. Pass 'standard' to enable automatic vertical video cropping",
+                    },
                     "edit": {
                         "type": "array",
                         "items": {
@@ -1229,6 +1249,10 @@ async def handle_list_tools() -> list[types.Tool]:
                     "rendered": {
                         "type": "boolean",
                         "description": "Whether the edit has been rendered",
+                    },
+                    "vertical_crop": {
+                        "type": "string",
+                        "description": "ML-powered automatic vertical crop mode. Pass 'standard' to enable automatic vertical video cropping",
                     },
                 },
                 "required": ["project_id", "edit_id"],
@@ -1891,6 +1915,7 @@ async def handle_call_tool(
         open_editor = arguments.get("open_editor")
         resolution = arguments.get("resolution")
         audio_asset = arguments.get("audio_asset")
+        vertical_crop = arguments.get("vertical_crop")
         subtitles = arguments.get("subtitles", True)
         created = False
 
@@ -1977,6 +2002,10 @@ async def handle_call_tool(
             "subtitle_from_audio_overlay": subtitles,
         }
 
+        # Add vertical_crop if provided
+        if vertical_crop:
+            json_edit["vertical_crop"] = vertical_crop
+
         try:
             proj = vj.projects.get(project)
         except Exception as e:
@@ -2018,6 +2047,7 @@ async def handle_call_tool(
         video_id = arguments.get("video_id")
 
         resolution = arguments.get("resolution")
+        vertical_crop = arguments.get("vertical_crop")
         created = False
 
         logging.info(f"edit is: {edit} and the type is: {type(edit)}")
@@ -2065,6 +2095,10 @@ async def handle_call_tool(
             "video_series_sequential": updated_edit,
         }
 
+        # Add vertical_crop if provided
+        if vertical_crop:
+            json_edit["vertical_crop"] = vertical_crop
+
         try:
             proj = vj.projects.get(project)
         except Exception:
@@ -2108,6 +2142,7 @@ async def handle_call_tool(
         video_series_sequential = arguments.get("video_series_sequential")
         audio_overlay = arguments.get("audio_overlay")
         rendered = arguments.get("rendered")
+        vertical_crop = arguments.get("vertical_crop")
 
         # Validate required parameters
         if not project_id:
@@ -2206,6 +2241,10 @@ async def handle_call_tool(
         # If rendering is explicitly requested
         if rendered is True:
             update_json["skip_rendering"] = bool(False)
+
+        # Add vertical_crop if provided
+        if vertical_crop:
+            update_json["vertical_crop"] = vertical_crop
 
         logging.info(f"Updating edit {edit_id} with: {update_json}")
 

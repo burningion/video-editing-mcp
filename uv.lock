@@ -3249,7 +3249,7 @@ wheels = [
 
 [[package]]
 name = "video-editor-mcp"
-version = "0.1.51"
+version = "0.1.53"
 source = { editable = "." }
 dependencies = [
     { name = "einops" },
@@ -3293,7 +3293,7 @@ requires-dist = [
     { name = "torch", specifier = "==2.5.1", index = "https://download.pytorch.org/whl/cpu" },
     { name = "torchvision", specifier = "==0.20.1", index = "https://download.pytorch.org/whl/cpu" },
     { name = "transformers", extras = ["torch"], specifier = "==4.47.1" },
-    { name = "videojungle", specifier = ">=0.1.77" },
+    { name = "videojungle", specifier = ">=0.1.78" },
 ]
 
 [package.metadata.requires-dev]
@@ -3306,16 +3306,16 @@ dev = [
 
 [[package]]
 name = "videojungle"
-version = "0.1.77"
+version = "0.1.78"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "httpx" },
     { name = "pydantic" },
     { name = "requests" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d1/20/6ae1d684df0b73db0844fae885a932535c8c50ac6e1ccf09635c47acb862/videojungle-0.1.77.tar.gz", hash = "sha256:f111664cbfd80d67563b4c27ad2816ec7187d3b663974e62dd523dd24b1e5870", size = 13879, upload-time = "2025-08-12T18:43:18.027Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/da/5b/4a5221e0b16c457c38a82b8979ec89088866a5c86a889655860aa92e1e84/videojungle-0.1.78.tar.gz", hash = "sha256:6176b103b1c4be6e33bc32dc2f5e333cc117168fa9e81f0ebb39938d74dc5b29", size = 14051, upload-time = "2025-08-31T01:58:39.084Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d0/ff/0cd5bb2276e316ad78575de84c66cd3fcbac821ef1c2c599ee91cbf791be/videojungle-0.1.77-py3-none-any.whl", hash = "sha256:69a46d89eb9b82597c2ad072af8fd6d7c594b4a6e910f81f53980ee515cec389", size = 13788, upload-time = "2025-08-12T18:43:16.782Z" },
+    { url = "https://files.pythonhosted.org/packages/34/43/be3aa803ae9ae54dcfb80353a7d4f81ff2404bfe73499e652115b0cd2a28/videojungle-0.1.78-py3-none-any.whl", hash = "sha256:7d15e88bda28dfee0d6de152d082c148fd928efaf75f4656284558eafb1e00b0", size = 14035, upload-time = "2025-08-31T01:58:38.212Z" },
 ]
 
 [[package]]
