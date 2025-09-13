@@ -211,6 +211,12 @@ Note: You'll need to set PyPI credentials via environment variables or command f
 - Token: `--token` or `UV_PUBLISH_TOKEN`
 - Or username/password: `--username`/`UV_PUBLISH_USERNAME` and `--password`/`UV_PUBLISH_PASSWORD`
 
+### MCP Server Registry
+
+```
+mcp-name: io.github.burningion/video-editing-mcp
+```
+
 ### Debugging
 
 Since MCP servers run over stdio, debugging can be challenging. For the best debugging
