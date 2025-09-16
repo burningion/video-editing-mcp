@@ -10,6 +10,8 @@ You'll need to sign up for an account at [Video Jungle](https://app.video-jungle
 
 [![PyPI version](https://badge.fury.io/py/video-editor-mcp.svg)](https://badge.fury.io/py/video-editor-mcp)
 
+[![Trust Score](https://archestra.ai/mcp-catalog/api/badge/quality/burningion/video-editing-mcp)](https://archestra.ai/mcp-catalog/burningion__video-editing-mcp)
+
 ## Components
 
 ### Resources
