@@ -8,6 +8,7 @@ Upload, edit, search, and generate videos from everyone's favorite LLM and [Vide
 
 You'll need to sign up for an account at [Video Jungle](https://app.video-jungle.com/register) in order to use this tool, and add your API key.
 
+[![smithery badge](https://smithery.ai/badge/video-editor-mcp)](https://smithery.ai/server/video-editor-mcp)
 [![PyPI version](https://badge.fury.io/py/video-editor-mcp.svg)](https://badge.fury.io/py/video-editor-mcp)
 
 ## Components
