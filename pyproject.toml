@@ -1,6 +1,6 @@
 [project]
 name = "video-editor-mcp"
-version = "0.1.55"
+version = "0.1.56"
 description = "Video Jungle MCP Server for Adding, Analysing, Searching, and Editing Videos"
 readme = "README.md"
 requires-python = ">=3.11"

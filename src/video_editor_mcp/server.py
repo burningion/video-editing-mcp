@@ -1915,7 +1915,10 @@ async def handle_call_tool(
         open_editor = arguments.get("open_editor")
         resolution = arguments.get("resolution")
         audio_asset = arguments.get("audio_asset")
+        # Accept only vertical_crop from agents; map to API field later
         vertical_crop = arguments.get("vertical_crop")
+        if isinstance(vertical_crop, bool):
+            vertical_crop = "standard" if vertical_crop else None
         subtitles = arguments.get("subtitles", True)
         created = False
 
@@ -2002,9 +2005,9 @@ async def handle_call_tool(
             "subtitle_from_audio_overlay": subtitles,
         }
 
-        # Add vertical_crop if provided
+        # Forward as API field
         if vertical_crop:
-            json_edit["vertical_crop"] = vertical_crop
+            json_edit["auto_vertical_crop"] = vertical_crop
 
         try:
             proj = vj.projects.get(project)
@@ -2047,7 +2050,10 @@ async def handle_call_tool(
         video_id = arguments.get("video_id")
 
         resolution = arguments.get("resolution")
+        # Accept only vertical_crop from agents; map to API field later
         vertical_crop = arguments.get("vertical_crop")
+        if isinstance(vertical_crop, bool):
+            vertical_crop = "standard" if vertical_crop else None
         created = False
 
         logging.info(f"edit is: {edit} and the type is: {type(edit)}")
@@ -2095,9 +2101,9 @@ async def handle_call_tool(
             "video_series_sequential": updated_edit,
         }
 
-        # Add vertical_crop if provided
+        # Forward as API field
         if vertical_crop:
-            json_edit["vertical_crop"] = vertical_crop
+            json_edit["auto_vertical_crop"] = vertical_crop
 
         try:
             proj = vj.projects.get(project)
@@ -2142,7 +2148,10 @@ async def handle_call_tool(
         video_series_sequential = arguments.get("video_series_sequential")
         audio_overlay = arguments.get("audio_overlay")
         rendered = arguments.get("rendered")
+        # Accept only vertical_crop from agents; map to API field later
         vertical_crop = arguments.get("vertical_crop")
+        if isinstance(vertical_crop, bool):
+            vertical_crop = "standard" if vertical_crop else None
 
         # Validate required parameters
         if not project_id:
@@ -2242,9 +2251,9 @@ async def handle_call_tool(
         if rendered is True:
             update_json["skip_rendering"] = bool(False)
 
-        # Add vertical_crop if provided
+        # Forward as API field
         if vertical_crop:
-            update_json["vertical_crop"] = vertical_crop
+            update_json["auto_vertical_crop"] = vertical_crop
 
         logging.info(f"Updating edit {edit_id} with: {update_json}")
 
