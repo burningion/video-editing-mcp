@@ -528,9 +528,9 @@ async def handle_list_tools() -> list[types.Tool]:
                             "type": "string",
                             "description": "Video resolution. Examples include '1920x1080', '1280x720'",
                         },
-                        "render_subtiles": {
+                        "subtitles": {
                             "type": "boolean",
-                            "description": "Whether to render subtitiles in the video edit",
+                            "description": "Whether to render subtitles in the video edit",
                             "default": True,
                         },
                         "vertical_crop": {
@@ -650,9 +650,9 @@ async def handle_list_tools() -> list[types.Tool]:
                         "project_id": {"type": "string"},
                         "resolution": {"type": "string"},
                         "video_id": {"type": "string"},
-                        "render_subtiles": {
+                        "subtitles": {
                             "type": "boolean",
-                            "description": "Whether to render subtitiles in the video edit",
+                            "description": "Whether to render subtitles in the video edit",
                             "default": True,
                         },
                         "vertical_crop": {
@@ -1004,6 +1004,11 @@ async def handle_list_tools() -> list[types.Tool]:
                         "type": "string",
                         "description": "Video resolution. Examples include '1920x1080', '1280x720'",
                     },
+                    "subtitles": {
+                        "type": "boolean",
+                        "description": "Whether to render subtitles in the video edit",
+                        "default": True,
+                    },
                     "vertical_crop": {
                         "type": "string",
                         "description": "ML-powered automatic vertical crop mode. Pass 'standard' to enable automatic vertical video cropping",
@@ -1121,6 +1126,11 @@ async def handle_list_tools() -> list[types.Tool]:
                     "project_id": {"type": "string"},
                     "resolution": {"type": "string"},
                     "video_id": {"type": "string"},
+                    "subtitles": {
+                        "type": "boolean",
+                        "description": "Whether to render subtitles in the video edit",
+                        "default": True,
+                    },
                     "vertical_crop": {
                         "type": "string",
                         "description": "ML-powered automatic vertical crop mode. Pass 'standard' to enable automatic vertical video cropping",
