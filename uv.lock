@@ -3249,7 +3249,7 @@ wheels = [
 
 [[package]]
 name = "video-editor-mcp"
-version = "0.1.56"
+version = "0.1.58"
 source = { editable = "." }
 dependencies = [
     { name = "einops" },

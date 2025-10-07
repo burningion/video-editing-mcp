@@ -711,6 +711,10 @@ async def handle_list_tools() -> list[types.Tool]:
                             "type": "number",
                             "description": "Frames per second for the output video",
                         },
+                        "subtitles": {
+                            "type": "boolean",
+                            "description": "Whether to render subtitles in the video edit",
+                        },
                         "video_series_sequential": {
                             "type": "array",
                             "description": "Array of video clips in sequential order",
@@ -1186,6 +1190,10 @@ async def handle_list_tools() -> list[types.Tool]:
                     "video_output_fps": {
                         "type": "number",
                         "description": "Frames per second for the output video",
+                    },
+                    "subtitles": {
+                        "type": "boolean",
+                        "description": "Whether to render subtitles in the video edit",
                     },
                     "video_series_sequential": {
                         "type": "array",
@@ -2000,8 +2008,7 @@ async def handle_call_tool(
             }
             audio_overlay.append(audio_overlay_item)
             logging.info(f"Audio overlay configured: {audio_overlay_item}")
-        else:
-            subtitles = False
+        # Do not force subtitles off; backend can use default audio if no overlay
         json_edit = {
             "video_edit_version": "1.0",
             "video_output_format": "mp4",
@@ -2064,6 +2071,8 @@ async def handle_call_tool(
         vertical_crop = arguments.get("vertical_crop")
         if isinstance(vertical_crop, bool):
             vertical_crop = "standard" if vertical_crop else None
+        # Subtitles flag (backend will use default audio if overlay absent)
+        subtitles = arguments.get("subtitles", True)
         created = False
 
         logging.info(f"edit is: {edit} and the type is: {type(edit)}")
@@ -2109,6 +2118,7 @@ async def handle_call_tool(
             "video_output_filename": "output_video.mp4",
             "audio_overlay": [],  # TODO: add this back in
             "video_series_sequential": updated_edit,
+            "subtitle_from_audio_overlay": subtitles,
         }
 
         # Forward as API field
@@ -2158,6 +2168,7 @@ async def handle_call_tool(
         video_series_sequential = arguments.get("video_series_sequential")
         audio_overlay = arguments.get("audio_overlay")
         rendered = arguments.get("rendered")
+        subtitles = arguments.get("subtitles")
         # Accept only vertical_crop from agents; map to API field later
         vertical_crop = arguments.get("vertical_crop")
         if isinstance(vertical_crop, bool):
@@ -2253,6 +2264,8 @@ async def handle_call_tool(
         if audio_overlay is not None:
             # Cast to a list to ensure proper typing
             update_json["audio_overlay"] = list(audio_overlay) if audio_overlay else []
+        if subtitles is not None:
+            update_json["subtitle_from_audio_overlay"] = bool(subtitles)
 
         # Skip rendering by default like in create function
         update_json["skip_rendering"] = bool(True)
