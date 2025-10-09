@@ -1,6 +1,6 @@
 [project]
 name = "video-editor-mcp"
-version = "0.1.58"
+version = "0.1.59"
 description = "Video Jungle MCP Server for Adding, Analysing, Searching, and Editing Videos"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -18,7 +18,7 @@ dependencies = [
  "torch==2.5.1",
  "torchvision==0.20.1",
  "transformers[torch]==4.47.1",
- "videojungle>=0.1.79",
+ "videojungle>=0.1.80",
 ]
 homepage = "https://github.com/burningion/video-editing-mcp"
 
